@@ -56,13 +56,6 @@ class _AddNotesPageState extends State<AddNotesPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add Note'),
-        actions: [
-          IconButton(
-              onPressed: () {
-                debugPrint(getTimeNow);
-              },
-              icon: const Icon(Icons.alarm)),
-        ],
       ),
       body: Column(
         children: [
@@ -92,7 +85,9 @@ class _AddNotesPageState extends State<AddNotesPage> {
                   } else {
                     await SQLHelper.createNote(title, description, getTimeNow);
                     widget.onChanged();
-                    Navigator.pop(context);
+                    if (mounted) {
+                      Navigator.pop(context);
+                    }
                   }
                 } catch (e) {
                   debugPrint(e.toString());

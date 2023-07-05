@@ -197,7 +197,9 @@ class _EditNotesPageState extends State<EditNotesPage> {
                           );
                           widget.onChanged();
                           // pop to previous screen
-                          Navigator.of(context).pop();
+                          if (mounted) {
+                            Navigator.pop(context);
+                          }
                         }
                       } catch (e) {
                         debugPrint(e.toString());

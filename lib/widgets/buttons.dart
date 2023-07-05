@@ -26,8 +26,8 @@ class DeleteIconButton extends StatelessWidget {
                 'Are you sure you want to delete this note? This action cannot be undone.'),
             actions: [
               TextButton(
-                onPressed: () async {
-                  await SQLHelper.deleteNote(note['id']);
+                onPressed: () {
+                  SQLHelper.deleteNote(note['id']);
                   onChanged();
                   // if on the edit page, pop the page to go back to the list page else just close the dialog
                   Navigator.of(context).popUntil((route) => route.isFirst);
