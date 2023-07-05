@@ -92,23 +92,22 @@ import '../SQL/sql_helper.dart';
 import '../widgets/text_fields.dart';
 
 class EditNotesPage extends StatefulWidget {
-  final int? id;
+  final int id;
   final String? title;
   final String? description;
-  final String? getTimeNow;
+  final String getTimeNow;
+  final Map<String, dynamic> note;
+  final Function() onChanged;
 
-  final onChanged;
   const EditNotesPage({
     Key? key,
-    this.id,
+    required this.id,
     this.title,
     this.description,
-    this.getTimeNow,
+    required this.getTimeNow,
     required this.note,
     required this.onChanged,
-  });
-
-  final Map<String, dynamic> note;
+  }) : super(key: key);
 
   @override
   State<EditNotesPage> createState() => _EditNotesPageState();
@@ -120,7 +119,7 @@ class _EditNotesPageState extends State<EditNotesPage> {
 
   String get title => _titleController.text;
   String get description => _descriptionController.text;
-  String get getTimeNow => widget.getTimeNow!;
+  String get getTimeNow => widget.getTimeNow;
 
   void _buttonState() {
     setState(() {
@@ -176,14 +175,14 @@ class _EditNotesPageState extends State<EditNotesPage> {
                 : ElevatedButton(
                     onPressed: () async {
                       try {
-                        if (title.isEmpty) {
+                        if (_titleController.text.isEmpty) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text('Title cannot be empty'),
                             ),
                           );
                         }
-                        if (description.isEmpty) {
+                        if (_descriptionController.text.isEmpty) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text('Description cannot be empty'),
@@ -191,14 +190,14 @@ class _EditNotesPageState extends State<EditNotesPage> {
                           );
                         } else {
                           await SQLHelper.updateNote(
-                            widget.id!,
+                            widget.id,
                             title,
                             description,
                             getTimeNow,
                           );
                           widget.onChanged();
                           // pop to previous screen
-                          Navigator.pop(context);
+                          Navigator.of(context).pop();
                         }
                       } catch (e) {
                         debugPrint(e.toString());

@@ -85,35 +85,64 @@ class _HomePageState extends State<NotesListScreen> {
                   itemCount: notes.length,
                   itemBuilder: (context, index) {
                     final note = notes[index];
+                    final desc = note['description'];
                     final createdAt = note['createdAt'];
                     final updatedAt = note['updatedAt'];
-                    final createdTime = Text(
-                      'Created at: $createdAt',
-                      // style: const TextStyle(
-                      //   fontSize: 12,
-                      // ),
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
+                    final descText = Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        '$desc',
+                        style: const TextStyle(
+                          fontSize: 14,
+                        ),
+                        textAlign: TextAlign.left,
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     );
-                    final updatedTime = Text(
-                      'Updated at: $updatedAt',
-                      // style: const TextStyle(
-                      //   fontSize: 12,
-                      // ),
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
+                    final createdTime = Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        descText,
+                        Text(
+                          'Created: $createdAt',
+                          style: const TextStyle(
+                            fontSize: 12,
+                          ),
+                          textAlign: TextAlign.left,
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
                     );
+                    final updatedTime = Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        descText,
+                        Text(
+                          'Updated: $updatedAt',
+                          style: const TextStyle(
+                            fontSize: 12,
+                          ),
+                          textAlign: TextAlign.left,
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    );
+
                     final subTime = updatedAt == '' ? createdTime : updatedTime;
                     return Card(
                       margin: const EdgeInsets.all(8.0),
                       child: ListTile(
-                        title: Text(note['title']),
+                        title: Text(note['title'],
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            )),
                         subtitle: subTime,
-                        // Text(
-                        //   // date,
-                        //   maxLines: 3,
-                        //   overflow: TextOverflow.ellipsis,
-                        // ),
                         trailing:
                             DeleteIconButton(note: note, onChanged: _refresh),
                         onTap: () async {
@@ -124,6 +153,7 @@ class _HomePageState extends State<NotesListScreen> {
                                 id: note['id'],
                                 title: note['title'],
                                 description: note['description'] ?? '',
+                                getTimeNow: timeNow,
                                 note: note,
                                 onChanged: _refresh,
                               ),

@@ -19,20 +19,18 @@ class SQLHelper {
     );
   }
 
-  static Future<int> createNote(String title, String? description,
-      String createdAt, String? updatedAt) async {
+  static Future<int> createNote(
+      String title, String? description, String createdAt) async {
     final sql.Database db = await SQLHelper.database();
 
     final data = {
       'title': title,
       'description': description,
       'createdAt': createdAt,
-      'updatedAt': '',
     };
     final id = await db.insert('myNotesDB', data,
         conflictAlgorithm: sql.ConflictAlgorithm.replace);
-    debugPrint(
-        'Created note with id: $id, createdAt: $createdAt, updatedAt: $updatedAt');
+    debugPrint('Created note with id: $id, createdAt: $createdAt');
     return id;
   }
 
@@ -52,7 +50,7 @@ class SQLHelper {
   }
 
   static Future<int> updateNote(
-      int id, String title, String? description, String? updatedAt) async {
+      int id, String title, String? description, String updatedAt) async {
     final sql.Database db = await SQLHelper.database();
     final data = {
       'title': title,

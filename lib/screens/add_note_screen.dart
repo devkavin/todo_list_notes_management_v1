@@ -90,8 +90,7 @@ class _AddNotesPageState extends State<AddNotesPage> {
                       ),
                     );
                   } else {
-                    await SQLHelper.createNote(
-                        title, description, getTimeNow, getTimeNow);
+                    await SQLHelper.createNote(title, description, getTimeNow);
                     widget.onChanged();
                     Navigator.pop(context);
                   }
