@@ -15,6 +15,7 @@ class DeleteIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
+      color: Color.fromRGBO(255, 213, 46, 1),
       icon: const Icon(Icons.delete),
       onPressed: () async {
         // confirmation box

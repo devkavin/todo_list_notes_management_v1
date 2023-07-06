@@ -89,6 +89,7 @@ import 'package:flutter/material.dart';
 import 'package:todo_list_notes_management_v1/widgets/buttons.dart';
 
 import '../SQL/sql_helper.dart';
+import '../widgets/constants.dart';
 import '../widgets/text_fields.dart';
 
 class EditNotesPage extends StatefulWidget {
@@ -142,6 +143,9 @@ class _EditNotesPageState extends State<EditNotesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: const IconThemeData(
+          color: IosColors.iosYellow,
+        ),
         title: const Text('Edit Note'),
         actions: [
           DeleteIconButton(
@@ -158,56 +162,61 @@ class _EditNotesPageState extends State<EditNotesPage> {
               descriptionController: _descriptionController,
               buttonState: _buttonState),
           Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: (_titleController.text.isEmpty ||
-                    _descriptionController.text.isEmpty)
-                ? TextButton(
-                    onPressed: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Please fill the fields'),
-                        ),
-                      );
-                      _buttonState();
-                    },
-                    child: const Text('Please fill the fields'),
-                  )
-                : ElevatedButton(
-                    onPressed: () async {
-                      try {
-                        if (_titleController.text.isEmpty) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Title cannot be empty'),
-                            ),
-                          );
-                        }
-                        if (_descriptionController.text.isEmpty) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Description cannot be empty'),
-                            ),
-                          );
-                        } else {
-                          await SQLHelper.updateNote(
-                            widget.id,
-                            title,
-                            description,
-                            getTimeNow,
-                          );
-                          widget.onChanged();
-                          // pop to previous screen
-                          if (mounted) {
-                            Navigator.pop(context);
+              padding: const EdgeInsets.all(8.0),
+              child: (_titleController.text.isEmpty ||
+                      _descriptionController.text.isEmpty)
+                  ? TextButton(
+                      onPressed: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Please fill the fields'),
+                          ),
+                        );
+                        _buttonState();
+                      },
+                      child: const Text('Please fill the fields'),
+                      style: TextButton.styleFrom(
+                        foregroundColor: IosColors.iosYellow,
+                        backgroundColor: IosColors.iosGrey,
+                      ))
+                  : ElevatedButton(
+                      onPressed: () async {
+                        try {
+                          if (_titleController.text.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Title cannot be empty'),
+                              ),
+                            );
                           }
+                          if (_descriptionController.text.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Description cannot be empty'),
+                              ),
+                            );
+                          } else {
+                            await SQLHelper.updateNote(
+                              widget.id,
+                              title,
+                              description,
+                              getTimeNow,
+                            );
+                            widget.onChanged();
+                            // pop to previous screen
+                            if (mounted) {
+                              Navigator.pop(context);
+                            }
+                          }
+                        } catch (e) {
+                          debugPrint(e.toString());
                         }
-                      } catch (e) {
-                        debugPrint(e.toString());
-                      }
-                    },
-                    child: const Text('Update'),
-                  ),
-          ),
+                      },
+                      child: const Text('Update'),
+                      style: TextButton.styleFrom(
+                        foregroundColor: IosColors.iosYellow,
+                        backgroundColor: IosColors.iosGrey,
+                      ))),
         ],
       ),
     );

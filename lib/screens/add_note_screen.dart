@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../SQL/sql_helper.dart';
+import '../widgets/constants.dart';
 import '../widgets/text_fields.dart';
 
 class AddNotesPage extends StatefulWidget {
@@ -55,6 +56,9 @@ class _AddNotesPageState extends State<AddNotesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: const IconThemeData(
+          color: IosColors.iosYellow,
+        ),
         title: const Text('Add Note'),
       ),
       body: Column(
@@ -67,37 +71,54 @@ class _AddNotesPageState extends State<AddNotesPage> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: ElevatedButton(
-              onPressed: () async {
-                try {
-                  if (_titleController.text.isEmpty) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Title cannot be empty'),
-                      ),
-                    );
-                  }
-                  if (_descriptionController.text.isEmpty) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Description cannot be empty'),
-                      ),
-                    );
-                  } else {
-                    await SQLHelper.createNote(title, description, getTimeNow);
-                    widget.onChanged();
-                    if (mounted) {
-                      Navigator.pop(context);
+                onPressed: () async {
+                  try {
+                    if (_titleController.text.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text('Title cannot be empty'),
+                            // from top to bottom
+                            behavior: SnackBarBehavior.floating,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                            )),
+                      );
                     }
+                    if (_descriptionController.text.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Description cannot be empty'),
+                          // from top to bottom
+                          behavior: SnackBarBehavior.floating,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10),
+                            ),
+                          ),
+                        ),
+                      );
+                    } else {
+                      await SQLHelper.createNote(
+                          title, description, getTimeNow);
+                      widget.onChanged();
+                      if (mounted) {
+                        Navigator.pop(context);
+                      }
+                    }
+                  } catch (e) {
+                    debugPrint(e.toString());
                   }
-                } catch (e) {
-                  debugPrint(e.toString());
-                }
-              },
-              child: (_titleController.text.isEmpty ||
-                      _descriptionController.text.isEmpty)
-                  ? const Text('Please fill the fields')
-                  : const Text('Create'),
-            ),
+                },
+                child: (_titleController.text.isEmpty ||
+                        _descriptionController.text.isEmpty)
+                    ? const Text('Please fill the fields')
+                    : const Text('Create'),
+                style: TextButton.styleFrom(
+                  foregroundColor: IosColors.iosYellow,
+                  backgroundColor: IosColors.iosGrey,
+                )),
           ),
         ],
       ),

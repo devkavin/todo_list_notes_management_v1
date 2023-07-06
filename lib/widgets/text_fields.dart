@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_list_notes_management_v1/widgets/constants.dart';
 
 class TitleTextField extends StatelessWidget {
   final Function() buttonState;
@@ -15,15 +16,18 @@ class TitleTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextField(
+        cursorColor: IosColors.iosYellow,
         controller: _titleController,
         decoration: const InputDecoration(
           labelText: 'Title',
-          border: OutlineInputBorder(),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20)),
+          labelStyle: TextStyle(
+            color: Colors.white,
           ),
+          border: // no Outline border
+              InputBorder.none,
         ),
         onChanged: (value) => buttonState(),
+        onTapOutside: (event) => FocusScope.of(context).unfocus(),
       ),
     );
   }
@@ -44,17 +48,20 @@ class DescriptionTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextField(
+        cursorColor: IosColors.iosYellow,
         keyboardType: TextInputType.multiline,
         maxLines: null,
         controller: _descriptionController,
         decoration: const InputDecoration(
           labelText: 'Description',
-          border: OutlineInputBorder(),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20)),
+          labelStyle: TextStyle(
+            color: Colors.white,
           ),
+          border: // no Outline border
+              InputBorder.none,
         ),
         onChanged: (value) => buttonState(),
+        onTapOutside: (event) => FocusScope.of(context).unfocus(),
       ),
     );
   }
