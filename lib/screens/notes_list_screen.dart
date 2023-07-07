@@ -1,5 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:todo_list_notes_management_v1/widgets/constants.dart';
+import '../widgets/constants.dart';
 
 import '../SQL/sql_helper.dart';
 import '../widgets/buttons.dart';
@@ -51,7 +52,10 @@ class _HomePageState extends State<NotesListScreen> {
     return SafeArea(
       child: Scaffold(
           appBar: AppBar(
-            title: const Text('Notes'),
+            title: const Text(
+              'Notes',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             actions: [
               // TODO:dropdown menu with 2 options: Add Note and Delete All Notes (SQLHelper.deleteAllNotes())
             ],
@@ -119,9 +123,9 @@ class _HomePageState extends State<NotesListScreen> {
                         ],
                       );
                       final subTime =
-                          updatedAt == '' ? createdTime : updatedTime;
+                          updatedAt == null ? createdTime : updatedTime;
                       return Card(
-                        color: Color.fromARGB(255, 48, 48, 48),
+                        color: IosColors.iosGrey,
                         margin: const EdgeInsets.all(8.0),
                         child: ListTile(
                           title: Text(note['title'],
@@ -135,7 +139,7 @@ class _HomePageState extends State<NotesListScreen> {
                           onTap: () async {
                             await Navigator.push(
                               context,
-                              MaterialPageRoute(
+                              CupertinoPageRoute(
                                 builder: (context) => EditNotesPage(
                                   id: note['id'],
                                   title: note['title'],
@@ -163,7 +167,7 @@ class _HomePageState extends State<NotesListScreen> {
             onPressed: () async {
               await Navigator.push(
                 context,
-                MaterialPageRoute(
+                CupertinoPageRoute(
                   builder: (context) => AddNotesPage(
                     getTimeNow: timeNow,
                     buttonState: () {

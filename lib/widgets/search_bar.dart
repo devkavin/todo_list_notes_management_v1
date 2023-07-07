@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/constants.dart';
 
 class Search extends StatelessWidget {
   final TextEditingController controller;
@@ -15,15 +16,23 @@ class Search extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextField(
+        cursorColor: IosColors.iosYellow,
         controller: controller,
         decoration: const InputDecoration(
-            labelText: 'Search here..',
-            suffixIcon: Icon(Icons.search),
+            hintText: 'Search here..',
+            hintStyle: TextStyle(
+              color: IosColors.iosLightGrey,
+            ),
+            prefixIcon: Icon(
+              Icons.search,
+              color: IosColors.iosYellow,
+            ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(10)),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(20)),
+              borderSide: BorderSide(color: IosColors.iosYellow, width: 2),
             )),
         onChanged: onChanged,
         onTapOutside: (event) => FocusScope.of(context).unfocus(),

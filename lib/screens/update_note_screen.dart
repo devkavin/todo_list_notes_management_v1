@@ -1,92 +1,5 @@
-// import 'package:flutter/material.dart';
-
-// import '../SQL/sql_helper.dart';
-// import '../widgets/text_fields.dart';
-
-// class EditNotesPage extends StatefulWidget {
-//   final int? id;
-//   final String? title;
-//   final String? description;
-//   const EditNotesPage({
-//     Key? key,
-//     this.id,
-//     this.title,
-//     this.description,
-//   });
-
-//   @override
-//   State<EditNotesPage> createState() => _EditNotesPageState();
-// }
-
-// class _EditNotesPageState extends State<EditNotesPage> {
-//   final TextEditingController _titleController = TextEditingController();
-//   final TextEditingController _descriptionController = TextEditingController();
-
-//   String get title => _titleController.text;
-//   String get description => _descriptionController.text;
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     _titleController.text = widget.title!;
-//     _descriptionController.text = widget.description!;
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text('Edit Note'),
-//       ),
-//       body: Column(
-//         children: [
-//           TitleTextField(titleController: _titleController),
-//           DescriptionTextField(descriptionController: _descriptionController),
-//           Padding(
-//             padding: const EdgeInsets.all(8.0),
-//             child: ElevatedButton(
-//               onPressed: () async {
-//                 try {
-//                   if (_titleController.text.isEmpty) {
-//                     ScaffoldMessenger.of(context).showSnackBar(
-//                       const SnackBar(
-//                         content: Text('Title cannot be empty'),
-//                       ),
-//                     );
-//                   }
-//                   if (_descriptionController.text.isEmpty) {
-//                     ScaffoldMessenger.of(context).showSnackBar(
-//                       const SnackBar(
-//                         content: Text('Description cannot be empty'),
-//                       ),
-//                     );
-//                   } else {
-//                     await SQLHelper.updateNote(
-//                       widget.id!,
-//                       title,
-//                       description,
-//                     );
-//                     Navigator.pop(context);
-//                   }
-//                 } catch (e) {
-//                   debugPrint(e.toString());
-//                 }
-//               },
-
-//               child: (_titleController.text.isEmpty ||
-//                       _descriptionController.text.isEmpty)
-//                   ? const Text('Please fill the fields')
-//                   : const Text('Update'),
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
-
 import 'package:flutter/material.dart';
-import 'package:todo_list_notes_management_v1/widgets/buttons.dart';
+import '../widgets/buttons.dart';
 
 import '../SQL/sql_helper.dart';
 import '../widgets/constants.dart';
@@ -169,7 +82,11 @@ class _EditNotesPageState extends State<EditNotesPage> {
                       onPressed: () {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                            content: Text('Please fill the fields'),
+                            content: Text(
+                              'Please fill the fields',
+                              style: TextStyle(color: IosColors.iosYellow),
+                            ),
+                            backgroundColor: IosColors.iosGrey,
                           ),
                         );
                         _buttonState();
@@ -185,14 +102,24 @@ class _EditNotesPageState extends State<EditNotesPage> {
                           if (_titleController.text.isEmpty) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                content: Text('Title cannot be empty'),
+                                behavior: SnackBarBehavior.floating,
+                                content: Text(
+                                  'Title cannot be empty',
+                                  style: TextStyle(color: IosColors.iosYellow),
+                                ),
+                                backgroundColor: IosColors.iosGrey,
                               ),
                             );
                           }
                           if (_descriptionController.text.isEmpty) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                content: Text('Description cannot be empty'),
+                                behavior: SnackBarBehavior.floating,
+                                content: Text(
+                                  'Description cannot be empty',
+                                  style: TextStyle(color: IosColors.iosYellow),
+                                ),
+                                backgroundColor: IosColors.iosGrey,
                               ),
                             );
                           } else {
@@ -201,6 +128,16 @@ class _EditNotesPageState extends State<EditNotesPage> {
                               title,
                               description,
                               getTimeNow,
+                            );
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                behavior: SnackBarBehavior.floating,
+                                content: Text(
+                                  'Successfully updated!',
+                                  style: TextStyle(color: IosColors.iosYellow),
+                                ),
+                                backgroundColor: IosColors.iosGrey,
+                              ),
                             );
                             widget.onChanged();
                             // pop to previous screen

@@ -11,6 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        fontFamily: 'SF Pro Display',
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.black,
           primary: Colors.black,

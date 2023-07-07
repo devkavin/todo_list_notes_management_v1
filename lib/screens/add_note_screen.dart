@@ -76,20 +76,10 @@ class _AddNotesPageState extends State<AddNotesPage> {
                     if (_titleController.text.isEmpty) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                            content: Text('Title cannot be empty'),
-                            // from top to bottom
-                            behavior: SnackBarBehavior.floating,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
-                              ),
-                            )),
-                      );
-                    }
-                    if (_descriptionController.text.isEmpty) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Description cannot be empty'),
+                          content: Text(
+                            'Title cannot be empty',
+                            style: TextStyle(color: IosColors.iosYellow),
+                          ),
                           // from top to bottom
                           behavior: SnackBarBehavior.floating,
                           shape: RoundedRectangleBorder(
@@ -97,11 +87,40 @@ class _AddNotesPageState extends State<AddNotesPage> {
                               Radius.circular(10),
                             ),
                           ),
+                          backgroundColor: IosColors.iosGrey,
+                        ),
+                      );
+                    }
+                    if (_descriptionController.text.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text(
+                            'Description cannot be empty',
+                            style: TextStyle(color: IosColors.iosYellow),
+                          ),
+                          // from top to bottom
+                          behavior: SnackBarBehavior.floating,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10),
+                            ),
+                          ),
+                          backgroundColor: IosColors.iosGrey,
                         ),
                       );
                     } else {
                       await SQLHelper.createNote(
                           title, description, getTimeNow);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          behavior: SnackBarBehavior.floating,
+                          content: Text(
+                            'Successfully Added!',
+                            style: TextStyle(color: IosColors.iosYellow),
+                          ),
+                          backgroundColor: IosColors.iosGrey,
+                        ),
+                      );
                       widget.onChanged();
                       if (mounted) {
                         Navigator.pop(context);

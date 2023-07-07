@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todo_list_notes_management_v1/widgets/constants.dart';
+import '../widgets/constants.dart';
 
 class TitleTextField extends StatelessWidget {
   final Function() buttonState;
@@ -21,7 +21,7 @@ class TitleTextField extends StatelessWidget {
         decoration: const InputDecoration(
           labelText: 'Title',
           labelStyle: TextStyle(
-            color: Colors.white,
+            color: IosColors.iosLightGrey,
           ),
           border: // no Outline border
               InputBorder.none,
@@ -55,7 +55,7 @@ class DescriptionTextField extends StatelessWidget {
         decoration: const InputDecoration(
           labelText: 'Description',
           labelStyle: TextStyle(
-            color: Colors.white,
+            color: IosColors.iosLightGrey,
           ),
           border: // no Outline border
               InputBorder.none,
