@@ -1,6 +1,10 @@
 # todo_list_notes_management_v1
 
-A new Flutter project.
+Notes management app with CRUD functionalities and search bar.
+
+Database used: SQLite
+
+![Alt text](Screenshot_1688647218.png)
 
 ## Getting Started
 
