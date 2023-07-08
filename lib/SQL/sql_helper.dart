@@ -27,6 +27,7 @@ class SQLHelper {
       'title': title,
       'description': description,
       'createdAt': createdAt,
+      'updatedAt': '',
     };
     final id = await db.insert('myNotesDB', data,
         conflictAlgorithm: sql.ConflictAlgorithm.replace);
@@ -36,18 +37,19 @@ class SQLHelper {
 
   static Future<List<Map<String, dynamic>>> getNotes() async {
     final sql.Database db = await SQLHelper.database();
-    final notes = await db.query('myNotesDB');
+    final notes = await db.query('myNotesDB', orderBy: 'createdAt');
     debugPrint('Got ${notes.length} note');
     return notes;
   }
 
   // getMyNotesById widgets.id
-  static Future<List<Map<String, dynamic>>> getNotesById(int id) async {
-    final sql.Database db = await SQLHelper.database();
-    final notes = await db.query('myNotesDB', where: 'id = ?', whereArgs: [id]);
-    debugPrint('Got ${notes.length} notes');
-    return notes;
-  }
+  // static Future<List<Map<String, dynamic>>> getNotesById(int id) async {
+  //   final sql.Database db = await SQLHelper.database();
+  //   final notes = await db.query('myNotesDB',
+  //       orderBy: 'createdAt', where: 'id = ?', whereArgs: [id]);
+  //   debugPrint('Got ${notes.length} notes');
+  //   return notes;
+  // }
 
   static Future<int> updateNote(
       int id, String title, String? description, String updatedAt) async {
@@ -74,10 +76,20 @@ class SQLHelper {
   // search
   static Future<List<Map<String, dynamic>>> searchNotes(String query) async {
     final sql.Database db = await SQLHelper.database();
+
     final notes = await db.query('myNotesDB',
+        // orderBy: 'updatedAt DESC',
         where: 'title LIKE ? OR description LIKE ?',
         whereArgs: ['%$query%', '%$query%']);
     debugPrint('found ${notes.length} notes');
     return notes;
+  }
+
+  // delete all
+  static Future<int> deleteAllNotes() async {
+    final sql.Database db = await SQLHelper.database();
+    final count = await db.delete('myNotesDB');
+    debugPrint('Deleted $count notes');
+    return count;
   }
 }

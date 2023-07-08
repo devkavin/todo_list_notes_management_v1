@@ -113,10 +113,15 @@ class _AddNotesPageState extends State<AddNotesPage> {
                           title, description, getTimeNow);
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                          behavior: SnackBarBehavior.floating,
                           content: Text(
                             'Successfully Added!',
                             style: TextStyle(color: IosColors.iosYellow),
+                          ),
+                          behavior: SnackBarBehavior.floating,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10),
+                            ),
                           ),
                           backgroundColor: IosColors.iosGrey,
                         ),

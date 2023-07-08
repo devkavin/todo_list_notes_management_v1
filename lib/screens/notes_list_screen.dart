@@ -19,14 +19,16 @@ class NotesListScreen extends StatefulWidget {
 class _HomePageState extends State<NotesListScreen> {
   List<Map<String, dynamic>> notes = [];
 
-  // date is createdAt if updatedAt is null in SQLHelper
-  String get timeNow =>
-      DateFormat('yyyy-MM-dd hh:mm:ss a').format(DateTime.now());
+  // date time
+  String get timeNow => DateFormat('yyyy-MM-dd').format(DateTime.now());
+  // String get dateNow => DateFormat('yyyy-MM-dd').format(DateTime.now());
+  // String get timeNow => DateFormat('HH:mm a').format(DateTime.now());
 
   // date = createdAt from SQLHelper.getNotes()
 
   void _refresh() async {
     final data = await SQLHelper.getNotes();
+    // final data = await SQLHelper.getNotesLatestFirst();
     setState(() {
       notes = data;
     });
@@ -74,56 +76,41 @@ class _HomePageState extends State<NotesListScreen> {
                     itemCount: notes.length,
                     itemBuilder: (context, index) {
                       final note = notes[index];
+                      // sort by latest first by date and time
                       final desc = note['description'];
                       final createdAt = note['createdAt'];
-                      final updatedAt = note['updatedAt'];
-                      final descText = Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          '$desc',
-                          style: const TextStyle(
-                            fontSize: 14,
-                          ),
-                          textAlign: TextAlign.left,
-                          maxLines: 3,
-                          overflow: TextOverflow.ellipsis,
+                      // final updatedAt = note['updatedAt'];
+
+                      final subText = Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 8.0, 0, 8.0),
+                        child: Row(
+                          children: [
+                            Text(
+                              '$createdAt',
+                              style: const TextStyle(
+                                color: IosColors.iosLightGrey,
+                                fontSize: 14,
+                              ),
+                              textAlign: TextAlign.left,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(8.0, 0, 0, 0),
+                              child: Text(
+                                '$desc',
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                ),
+                                textAlign: TextAlign.left,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
                         ),
                       );
-                      final createdTime = Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          descText,
-                          Text(
-                            'Created: $createdAt',
-                            style: const TextStyle(
-                              fontSize: 12,
-                            ),
-                            textAlign: TextAlign.left,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
-                      );
-                      final updatedTime = Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          descText,
-                          Text(
-                            'Updated: $updatedAt',
-                            style: const TextStyle(
-                              color: IosColors.iosWhite,
-                              fontSize: 12,
-                            ),
-                            textAlign: TextAlign.left,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
-                      );
-                      final subTime =
-                          updatedAt == null ? createdTime : updatedTime;
+
                       return Card(
                         color: IosColors.iosGrey,
                         margin: const EdgeInsets.all(8.0),
@@ -133,7 +120,9 @@ class _HomePageState extends State<NotesListScreen> {
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
                               )),
-                          subtitle: subTime,
+                          subtitle:
+                              // subTime,
+                              subText,
                           trailing:
                               DeleteIconButton(note: note, onChanged: _refresh),
                           onTap: () async {
@@ -161,7 +150,7 @@ class _HomePageState extends State<NotesListScreen> {
           ),
           floatingActionButton: FloatingActionButton(
             backgroundColor: //transparent
-                Color.fromARGB(0, 48, 48, 48),
+                const Color.fromARGB(0, 48, 48, 48),
             // hide background
             // Colors.transparent,
             onPressed: () async {
@@ -178,8 +167,7 @@ class _HomePageState extends State<NotesListScreen> {
                 ),
               );
             },
-            child: const Icon(Icons.edit_square,
-                color: Color.fromRGBO(255, 213, 46, 1)),
+            child: const Icon(Icons.edit_square, color: IosColors.iosYellow),
           )),
     );
   }

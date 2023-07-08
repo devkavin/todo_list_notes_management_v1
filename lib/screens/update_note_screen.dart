@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../widgets/buttons.dart';
 
 import '../SQL/sql_helper.dart';
@@ -86,26 +87,37 @@ class _EditNotesPageState extends State<EditNotesPage> {
                               'Please fill the fields',
                               style: TextStyle(color: IosColors.iosYellow),
                             ),
+                            behavior: SnackBarBehavior.floating,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                            ),
                             backgroundColor: IosColors.iosGrey,
                           ),
                         );
                         _buttonState();
                       },
-                      child: const Text('Please fill the fields'),
                       style: TextButton.styleFrom(
                         foregroundColor: IosColors.iosYellow,
                         backgroundColor: IosColors.iosGrey,
-                      ))
+                      ),
+                      child: const Text('Please fill the fields'))
                   : ElevatedButton(
                       onPressed: () async {
                         try {
                           if (_titleController.text.isEmpty) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                behavior: SnackBarBehavior.floating,
                                 content: Text(
                                   'Title cannot be empty',
                                   style: TextStyle(color: IosColors.iosYellow),
+                                ),
+                                behavior: SnackBarBehavior.floating,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10),
+                                  ),
                                 ),
                                 backgroundColor: IosColors.iosGrey,
                               ),
@@ -114,10 +126,15 @@ class _EditNotesPageState extends State<EditNotesPage> {
                           if (_descriptionController.text.isEmpty) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                behavior: SnackBarBehavior.floating,
                                 content: Text(
                                   'Description cannot be empty',
                                   style: TextStyle(color: IosColors.iosYellow),
+                                ),
+                                behavior: SnackBarBehavior.floating,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10),
+                                  ),
                                 ),
                                 backgroundColor: IosColors.iosGrey,
                               ),
@@ -131,10 +148,15 @@ class _EditNotesPageState extends State<EditNotesPage> {
                             );
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                behavior: SnackBarBehavior.floating,
                                 content: Text(
                                   'Successfully updated!',
                                   style: TextStyle(color: IosColors.iosYellow),
+                                ),
+                                behavior: SnackBarBehavior.floating,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10),
+                                  ),
                                 ),
                                 backgroundColor: IosColors.iosGrey,
                               ),
