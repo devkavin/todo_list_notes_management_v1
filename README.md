@@ -7,7 +7,7 @@ Database used: SQLite
 <div>
 
 </div>
-<p float="left">
+<p float="center">
   <img src="./screenshots/Screenshot_1688647218.png" width="250" height="auto" style="border: 1px solid; border-radius: 10px;">
   <img src="./screenshots/Screenshot_1688647262.png" width="250" height="auto" style="border: 1px solid; border-radius: 10px;">
   <img src="./screenshots/Screenshot_1688647302.png" width="250" height="auto" style="border: 1px solid; border-radius: 10px;">
