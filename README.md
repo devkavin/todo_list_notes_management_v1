@@ -8,9 +8,9 @@ Database used: SQLite
 
 </div>
 <p float="left">
-  <img src="./screenshots/Screenshot_1688647218.png" width="500" height="auto" style="border: 1px solid; border-radius: 10px;">
-  <img src="./screenshots/Screenshot_1688647262.png" width="500" height="auto" style="border: 1px solid; border-radius: 10px;">
-  <img src="./screenshots/Screenshot_1688647302.png" width="500" height="auto" style="border: 1px solid; border-radius: 10px;">
+  <img src="./screenshots/Screenshot_1688647218.png" width="200" height="auto" style="border: 1px solid; border-radius: 10px;">
+  <img src="./screenshots/Screenshot_1688647262.png" width="200" height="auto" style="border: 1px solid; border-radius: 10px;">
+  <img src="./screenshots/Screenshot_1688647302.png" width="200" height="auto" style="border: 1px solid; border-radius: 10px;">
 </p>
 
 ![Alt text](screenshots/Screenshot_1688647218.png) ![Alt text](screenshots/Screenshot_1688647262.png) ![Alt text](screenshots/Screenshot_1688647302.png)
