@@ -4,7 +4,8 @@ Notes management app with CRUD functionalities and search bar.
 
 Database used: SQLite
 
-![Alt text](Screenshot_1688647218.png)
+![Alt text](Screenshot_1688647218.png) ![Alt text](Screenshot_1688647262.png) ![Alt text](Screenshot_1688647302.png)
+![Alt text](Screenshot_1688647326.png) ![Alt text](Screenshot_1688647354.png)
 
 ## Getting Started
 
